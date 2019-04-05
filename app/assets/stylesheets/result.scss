@@ -1,0 +1,32 @@
+.inline{
+	display: inline-block;
+	vertical-align: middle;
+	// line-height: 10px;
+}
+
+.resultContent:hover {
+	color:black;
+	background-color: white;
+	opacity: 0.4;
+}
+
+.result{
+	margin: 1em;
+	position: relative;
+}
+
+
+
+.option{
+	position: absolute;
+	top: 20%;
+	left: 15px;
+	width: 30%;
+}
+
+.resultSet{
+	position: absolute;
+	top: 20%;
+	left: 30%;
+	width: 60%;
+}

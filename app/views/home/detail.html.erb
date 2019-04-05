@@ -1,0 +1,63 @@
+
+
+
+  <div class="container">
+        <div class="container">
+                <h1>商品詳細ページ</h1>
+                <p>
+                  <%= link_to("本を探す","https://70712019.localtunnel.me")%>
+                  ＞
+                  <%= link_to("検索条件を指定する","http://localbi17063.localtunnel.me/Ybooks/public/")%>
+                  ＞
+                  <%= link_to("検索結果一覧","https://bi70712068.localtunnel.me/home/result")%>
+                  ＞
+                  <%= link_to("商品詳細","")%>
+                </p>
+        </div>
+
+        <div class="row">
+                <div class="col-4">
+                    <img src = <%= @book.coverURL %> alt = "いめーじ" height="340"/>
+                </div>
+
+                <div class="list-group col-4">
+                  <p class="list-group-item">書籍名：<%= @book.title %></p>
+                  <p class="list-group-item">著者名：<%= @book.auther %></p>
+                  <p class="list-group-item">出版社：<%= @book.publish %></p>
+                  <p class="list-group-item">発売日：<%= @book.published %></p>
+                  <p class="list-group-item">ジャンル：<%= @book.genre %></p>
+                  <p class="list-group-item">ISBN-13:<%= @book.isbn %></p>
+                  <p class="list-group-item">在庫：
+                    <select class="" name="stock">
+                      <option value="A">支店A</option>
+                      <option value="B">支店B</option>
+                      <option value="C">支店C</option>
+                      <option value="4">支店D</option>
+                    </select>
+                  </p>
+                  <p class="list-group-item">棚番号：  <%= link_to(@book.rack_number ,"https://bi70712068.localtunnel.me/home/map/#{@book.isbn}")%></p>
+                </div>
+
+        </div>
+
+        <p class="display-4"><%= @book.price %>円</p>
+
+        <div class="row　text-center">
+            <div class="btn btn-success">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                <%= link_to("検索結果に戻る","https://bi70712068.localtunnel.me/home/result")%>
+            </div>
+
+            <div class="btn btn-primary">
+                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                <%= link_to("カートに入れる","http://localbi16030.localtunnel.me/result")%>
+            </div>
+
+            <div class="btn btn-info">
+                <span class="fa fa-search"></span>
+                <%= link_to("検索に戻る","https://70712019.localtunnel.me")%>
+            </div>
+        </div>
+    </div>
+
+    </div>

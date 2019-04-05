@@ -1,0 +1,6 @@
+<input type="text" name="user[name]" id="user_name">
+
+
+<%= form_tag path, method: 'patch' do %>
+<%= text_area_tag :description, @car.description %>
+<%= select_tag :type, options_for_select([['Sedan', 1], ['Eco', 2 ]], @car.type %>

@@ -1,0 +1,97 @@
+<div class="container">
+
+		<div class="option">
+			<h2>絞り込み検索</h2>
+			<h3>条件指定</h3>
+			<h4>・絞り込み条件</h4>
+			<p>購入可能なもの</p>
+			<p>購入可能なもの(予約注文を除く)</p>
+			<p>在庫あり</p>
+			<p>予約受付中</p>
+			<h4>・出版年月</h4>
+			<p>～1979年</p>
+			<p>1980年～1989年</p>
+			<p>1990年～1999年</p>
+			<p>2000年～2009年</p>
+			<p>2010年～</p>
+			<p>販売開始前</p>
+			<h4>・書店レビュー</h4>
+			<p>書店レビューあり</p>
+			<h4>・価格帯</h4>
+			<p>￥<input type="text" size="6">～￥<input type="text" size="6"></p>
+			<p>金額を指定して絞り込み</p>
+			<h4>本・コミックのジャンル</h4>
+			<p>コミック</p>
+			<p>文庫</p>
+			<p>新書・選書</p>
+			<p>文芸</p>
+			<p>教養</p>
+			<p>人文</p>
+			<p>教育</p>
+			<p>芸術</p>
+			<p>育児</p>
+			<p>趣味</p>
+			<p>生活</p>
+			<p>地図・ガイド</p>
+			<p>語学</p>
+			<p>高校学参</p>
+			<p>辞典</p>
+			<p>社会</p>
+			<p>法律</p>
+			<p>経営</p>
+			<p>ビジネス</p>
+			<p>理学</p>
+			<p>工学</p>
+			<p>コンピュータ</p>
+			<p>医学</p>
+			<p>看護学</p>
+			<p>エンターテイメント</p>
+		</div>
+		<div class="resultSet">
+			<!-- <div class="sort"> -->
+  			<p>
+  				並び順：
+  				<a href="#">標準</a>
+  				｜
+  				<a href="#">売れている順</a>
+  				｜
+  				<a href="#">出版が新しい順</a>
+  				｜
+  				<a href="#">出版が古い順</a>
+  				｜
+  				<a href="#">価格が安い順</a>
+  				｜
+  				<a href="#">価格が高い順</a>
+  			</p>
+  			<p>
+  				表示形式：
+  				<a href="#">簡易表示</a>
+  				｜
+  				<a href="#">詳細表示</a>
+  				件数：
+  				<a href="#">20件</a>
+  				｜
+  				<a href="#">50件</a>
+  				｜
+  				<a href="#">100件</a>
+  			</p>
+			<!-- </div> -->
+
+      <% @books.each do |book| %>
+			<div class="result">
+        <img class="inline" src = <%= book.coverURL %> alt="表紙イメージ" height="180">
+  			<a href="/home/detail/<%= book.isbn %>">
+  				<div class="inline resultContent">
+  					<h3><%= book.title %></h3>
+  					<p>著者名 / <%= book.title %></p>
+  					<p>出版社 / <%= book.publish %></p>
+  					<p style="color:red"><%= book.price %>円</p>
+  					<p>ISBN <%= book.isbn %></p>
+  				</div>
+  			</a>
+			</div>
+			<% end %>
+
+			<a href="http://70712019.localtunnel.me/search/search_name" class="btn btn-primary ">戻る</a>
+		</div>
+</div>

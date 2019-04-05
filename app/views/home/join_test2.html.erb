@@ -1,0 +1,70 @@
+<h1>機能テストページ</h1>
+
+<!--バーコードの読み取り-->
+<img class="inline" src = /isbnBarcode.jpg alt="表紙イメージ" height="90">
+<% require "open3"
+   isbn, e, s =Open3.capture3('zbarimg','--raw','/Users/bi17068/rails_app/workspace/public/isbnBarcode.jpg')
+   # o, e, s = Open3.capture3("date")
+%>
+<p>読み取り結果 ISBN:<%= isbn%></p>
+<p>標準エラー:<%= e%></p>
+<p>プロセスの終了ステータス:<%= s%></p>
+
+
+<!-- ISBNコードで検索 -->
+
+<%
+require 'net/http'
+require "json"
+require 'uri'
+
+#isbnを検索してくる
+def search_address(post_code)
+  res = Net::HTTP.get(URI.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:#{post_code}"))
+  hash = JSON.parse(res)
+
+
+#有効なISBNの判別？？
+  if hash["totalItems"] == 1
+    #ここで本のデータを返す
+    #JSONデータの構造　
+    #"文字列A: "文字列B",　となっていて、Aがキー、Bが値,mapと同じ感じ
+    #多分[]の中は配列で[番号]で何個目の{}かの指定が必要。０スタート
+    #https://www.googleapis.com/books/v1/volumes?q=isbn:9784532322281 で確かめてみて
+    #使いたいデータ　title auther covertrl publsh published genre isbn price
+    return hash["items"][0]["volumeInfo"]["title"]
+  else
+    #エラーメッセージを返す タイトルが０になる
+    return hash["totalItems"]
+  end
+end
+
+def search_address2(post_code)
+  res = Net::HTTP.get(URI.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:#{post_code}"))
+  hash2 = JSON.parse(res)
+
+#有効なISBNの判別？？
+  if hash2["totalItems"] == 1
+    #ここで本のデータを返す
+    #JSONデータの構造　
+    #"文字列A: "文字列B",　となっていて、Aがキー、Bが値,mapと同じ感じ
+    #多分[]の中は配列で[番号]で何個目の{}かの指定が必要。０スタート
+    #https://www.googleapis.com/books/v1/volumes?q=isbn:9784532322281 で確かめてみて
+    #使いたいデータ　title auther covertrl publsh published genre isbn price
+    return hash2["items"][0]["volumeInfo"]["imageLinks"]["smallThumbnail"]
+  else
+    #エラーメッセージを返す タイトルが０になる
+    return hash2["totalItems"]
+  end
+end
+
+post_code = isbn
+#↑にバーコードから読み取ったISBNコードを代入すると。。。出てくるのでは！！
+
+#結果を表示する
+puts search_address(post_code)
+%>
+
+
+<p>上記のISBNコードで書籍タイトルの検索結果:「<%= search_address(post_code) %>」</p>
+<img class="inline" src = <%= search_address2(post_code)%> alt="表紙イメージ" height="190">

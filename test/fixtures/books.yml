@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  auther: MyString
+  coverURL: MyString
+  publish: MyString
+  published: 2019-01-08
+  genre: MyString
+  rack_number: MyString
+  isbn: MyString
+  price: 1
+  a: MyString
+  b: MyString
+
+two:
+  title: MyString
+  auther: MyString
+  coverURL: MyString
+  publish: MyString
+  published: 2019-01-08
+  genre: MyString
+  rack_number: MyString
+  isbn: MyString
+  price: 1
+  a: MyString
+  b: MyString

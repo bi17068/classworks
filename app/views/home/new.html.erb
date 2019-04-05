@@ -1,0 +1,7 @@
+
+<%= form_tag '/home', method: 'post', multipart: true do %>
+	    <label>ファイル</label>
+	    <%= file_field :fileupload, :file, accept: 'image/jpg,image/jpeg,image/png,image/gif'%>
+
+	    <%= submit_tag 'この本をスキャン' %>
+<% end %>

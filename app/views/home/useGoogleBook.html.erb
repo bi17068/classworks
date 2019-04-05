@@ -1,0 +1,43 @@
+<h2>ISBNコードを入力するとGoogke Book APIから書籍情報が返ってくる機能</h2>
+
+
+<!--
+  google book api example  https://www.googleapis.com/books/v1/volumes?q=isbn:9784344034082
+ 参考サイト　https://qiita.com/yertea/items/be6f535fc31d7325ed97
+          https://qiita.com/TakeshiNickOsanai/items/2d9c30cedcba21f36669
+-->
+
+
+<%
+require 'net/http'
+require "json"
+require 'uri'
+
+#住所を返却する。無効な郵便番号に関してはメッセージを返す
+def search_address(post_code)
+  res = Net::HTTP.get(URI.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:#{post_code}"))
+  hash = JSON.parse(res)
+
+#有効なISBNの判別？？
+  if hash["totalItems"] == 1
+    #ここで本のデータを返す
+    #JSONデータの構造　
+    #"文字列A: "文字列B",　となっていて、Aがキー、Bが値,mapと同じ感じ
+    #多分[]の中は配列で[番号]で何個目の{}かの指定が必要。０スタート
+    #使いたいデータ　title auther covertrl publsh published genre isbn price
+    return hash["items"][0]["volumeInfo"]["title"]
+  else
+    #エラーメッセージを返す
+    return messege = "no books"
+  end
+end
+
+print "検索するISBNコードを入力してください(ハイフン無し):"
+post_code = gets.chomp
+#↑にバーコードから読み取ったISBNコードを代入すると。。。出てくるのでは！！
+
+#結果を表示する
+puts search_address(post_code)
+%>
+
+<%= search_address(post_code) %>

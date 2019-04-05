@@ -1,0 +1,71 @@
+<h1>機能テストページ</h1>
+
+<!--バーコードの読み取り-->
+<p>this is uploded barcode</p>
+<img class="inline" src = /isbnBarcode.jpg alt="表紙イメージ" height="90">
+<% require "open3"
+   isbn, e, s =Open3.capture3('zbarimg','--raw','/Users/bi17068/rails_app/workspace/public/isbnBarcode.jpg')
+   # o, e, s = Open3.capture3("date")
+%>
+<p>読み取り結果 ISBN:<%= isbn%></p>
+
+
+
+<!-- ISBNコードで検索 -->
+
+<%
+require 'net/http'
+require "json"
+require 'uri'
+
+#isbnを検索してくる
+def search_address(post_code)
+  res = Net::HTTP.get(URI.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:#{post_code}"))
+  hash = JSON.parse(res)
+
+
+#有効なISBNの判別？？
+  if hash["totalItems"] == 1
+    #ここで本のデータを返す
+    #JSONデータの構造　
+    #"文字列A: "文字列B",　となっていて、Aがキー、Bが値,mapと同じ感じ
+    #多分[]の中は配列で[番号]で何個目の{}かの指定が必要。０スタート
+    #https://www.googleapis.com/books/v1/volumes?q=isbn:9784532322281 で確かめてみて
+    #使いたいデータ　title auther covertrl publsh published genre isbn price
+    return hash["items"][0]["volumeInfo"]["title"],
+            hash["items"][0]["volumeInfo"]["authors"][0],
+            hash["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"],
+            hash["items"][0]["volumeInfo"]["publishedDate"],
+            "non",
+            "non",
+            "non",
+            "non",
+            "non",
+            "non",
+            "non"
+
+  else
+    #エラーメッセージを返す タイトルが０になる
+    return hash["totalItems"]
+  end
+end
+
+post_code = isbn
+#↑にバーコードから読み取ったISBNコードを代入すると。。。出てくるのでは！！
+
+#結果を表示する
+# puts search_address(post_code)
+%>
+<% title, author,coverurl,publishedDate,genre,rack_num,isbn,price,a,b = search_address(post_code)%>
+<p>上記のISBNコードでgoogle book apiから検索</p>
+<img class="inline" src = <%= coverurl%> alt="表紙イメージ" height="190">
+<p>タイトル:「<%= title %>」</p>
+<p>著者:「<%= author%>」</p>
+<p>出版日:「<%= publishedDate%>」</p>
+
+
+<a href="/home/input_booksdata">
+この本を登録
+</a>
+<% @book2 = search_address(post_code) %>
+<%= @book2 = search_address(post_code) %>
